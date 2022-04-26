@@ -1,0 +1,9 @@
+<div class= 'container'>
+  <h1>Lists</h1>
+
+  <div class='summary-list'>
+    <% @lists.each do |list| %>
+      <div class='list'><%= link_to list.name, list_path(list) %></div>
+    <% end %>
+  </div>
+</div>

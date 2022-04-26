@@ -1,6 +1,17 @@
 .navbar-lewagon {
+  display: flex;
   justify-content: space-between;
+  align-items: center;
   background: white;
+  padding: 16px;
+}
+
+.navbar-lewagon a {
+  color: grey;
+
+  &:hover {
+    color: black;
+  }
 }
 
 .navbar-lewagon .navbar-collapse {

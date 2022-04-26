@@ -1,0 +1,7 @@
+<h1><%= @list.name %></h1>
+
+<div class='summary-movie'>
+  <% @bookmarks.each do |bookmark| %>
+    <div class='movie'><%= bookmark.movies %></div>
+  <% end %>
+</div>
