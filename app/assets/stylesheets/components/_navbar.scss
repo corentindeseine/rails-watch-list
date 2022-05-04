@@ -2,15 +2,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
-  padding: 16px;
+  background: #5b5b5b;
+  padding: 8px 16px;
+  color: white;
 }
 
 .navbar-lewagon a {
-  color: grey;
-
+  color: white;
+  text-decoration: none;
   &:hover {
-    color: black;
+    opacity: 0.8;
   }
 }
 

@@ -1,0 +1,22 @@
+<div class="container">
+
+  <h1>Top rated movies</h1>
+
+  <div class="list-top-movies">
+    <% @movies.each do |movie| %>
+      <div class="card-movie">
+        <%= link_to movie_path(movie) do%>
+          <%= image_tag movie.poster_url, alt: "Affiche film", class:'movie-image'%>
+          <div class="card-movie-infos">
+            <div>
+              <h2><%= movie.title %></h2>
+            </div>
+           <h2 class="card-movie-rating"><i class="fa-solid fa-circle-plus"></i></h2>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+FAIRE LES BOUTONS EN COULEUR

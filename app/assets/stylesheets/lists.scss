@@ -1,3 +1,45 @@
-// Place all the styles related to the lists controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.list-top-movies {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 16px;
+  margin-top: 16px;
+}
+
+
+.card-movie {
+  overflow: hidden;
+  background: white;
+  border-radius: 4px;
+  &:hover {
+    box-shadow: 0 0 15px rgba(80, 80, 80, 0.8);
+  }
+}
+
+.movie-image {
+  height: 150px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.card-movie h2 {
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-movie p {
+  font-size: 8px;
+  opacity: .7;
+  margin: 0;
+}
+
+
+.card-movie .card-movie-infos {
+  color: white;
+  background-color: #5b5b5b;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+}
