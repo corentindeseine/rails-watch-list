@@ -1,5 +1,4 @@
 class ListsController < ApplicationController
-
   def home
     @movies = Movie.all
   end
