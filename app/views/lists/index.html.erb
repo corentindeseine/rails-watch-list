@@ -1,10 +1,15 @@
 <div class= 'container'>
   <h1>Lists</h1>
 
-  <%= cl_image_tag "sample", width: 400, height: 300, crop: :fill %>
-  <div class='summary-list'>
+  <div class=''>
     <% @lists.each do |list| %>
-      <div class='list'><%= link_to list.name, list_path(list) %></div>
+      <div class="card" >
+        <%= link_to list_path(list) do%>
+          <div class="list-card">
+              <h2><%= list.name %></h2>
+          </div>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,31 @@
+.card {
+  overflow: hidden;
+  background: white;
+  border-radius: 4px;
+  border: 0px;
+  &:hover {
+    text-decoration: none;
+    box-shadow: 0 0 15px rgba(80, 80, 80, 0.8);
+  }
+}
+
+.card h2 {
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card p {
+  font-size: 8px;
+  opacity: .7;
+  margin: 0;
+}
+
+.card .card-infos {
+  color: white;
+  background-color: #5b5b5b;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}

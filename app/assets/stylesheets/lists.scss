@@ -5,41 +5,28 @@
   margin-top: 16px;
 }
 
-
-.card-movie {
-  overflow: hidden;
-  background: white;
-  border-radius: 4px;
-  &:hover {
-    box-shadow: 0 0 15px rgba(80, 80, 80, 0.8);
-  }
-}
-
 .movie-image {
   height: 160px;
   width: 100%;
   object-fit: cover;
 }
 
-.card-movie h2 {
-  font-size: 12px;
-  font-weight: bold;
-  margin: 0;
+.list-card {
+  background-image: url(list-image.jpeg);
+  object-fit: cover;
+  height: 160px;
+  width: 100%;
+  object-fit: cover;
 }
 
-.card-movie p {
-  font-size: 8px;
-  opacity: .7;
-  margin: 0;
+.summary-list {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
-
-.card-movie .card-movie-infos {
+.list-card {
+  margin: 16px;
+  text-align: center;
   color: white;
-  background-color: #5b5b5b;
-  padding: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  position: relative;
+
 }

@@ -5,6 +5,7 @@ class ListsController < ApplicationController
 
   def index
     @lists = List.all
+    @movies = Movie.all
   end
 
   def show
