@@ -1,2 +1,10 @@
 <h1>Movies#show</h1>
 <p>Find me in app/views/movies/show.html.erb</p>
+
+<h5 class="modal-title">Add to a list</h5>
+<%= simple_form_for [@movie, @bookmark] do |f| %>
+<%= f.association :list, collection: List.all.order(:name), prompt: "Select a list", input_html: { data: { controller: "slect2" } } %>
+</div>
+<div class="modal-footer">
+<%= f.submit "Add movie", class: "btn btn-flat" %>
+<% end %>

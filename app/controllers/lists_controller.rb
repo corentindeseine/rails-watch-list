@@ -1,11 +1,8 @@
 class ListsController < ApplicationController
-  def home
-    @movies = Movie.all
-  end
 
   def index
     @lists = List.all
-    @movies = Movie.all
+
   end
 
   def show

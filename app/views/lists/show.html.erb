@@ -2,6 +2,8 @@
 
 <div class='summary-movie'>
   <% @bookmarks.each do |bookmark| %>
-    <div class='movie'><%= bookmark.movies %></div>
+    <div class='movie'><%= bookmark.movie.title if bookmark.list_id == @list.id %></div>
   <% end %>
 </div>
+
+<div>

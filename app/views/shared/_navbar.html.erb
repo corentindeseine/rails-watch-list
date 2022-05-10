@@ -3,6 +3,19 @@
       <%  %>
       <%= link_to image_tag("popcorn.png", alt: "Movie", width: 60), root_path  %>
   </div>
+
+<div>
+<div class ='search'>
+  <%= form_tag movies_path, method: :get do %>
+    <%= text_field_tag :query,
+      params[:query],
+      class: "form-control",
+      placeholder: "Find a movie"
+    %>
+    <%= submit_tag "Search", class: "btn btn-primary" %>
+  <% end %>
+</div>
+</div>
   <div>
     <%= link_to 'My lists', lists_path  %> |
     <%= link_to 'Add a new list', new_list_path  %>
