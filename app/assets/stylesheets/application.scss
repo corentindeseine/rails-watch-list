@@ -6,11 +6,26 @@
 // External libraries
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome";
+@import 'swiper/swiper-bundle.min.css';
+
 
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
-@import "lists/";
+
+
+.container-fluid {
+  min-height: 90%;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.container-home {
+  position: relative;
+  min-height: 90%;
+  width: 100%;
+  padding-left: 1.2rem;
+}
 
 body {
   background-color: rgb(40, 40, 40);
@@ -19,8 +34,29 @@ body {
 
 h1 {
   color: white;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 1.5rem;
 }
 
 a {
   text-decoration: none;
+
+  &:hover{
+  text-decoration: none;
+  }
+}
+
+h6 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  color: white;
+  font-size: 1.3rem;
+}
+
+p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: white;
+  font-size: 14px;
 }

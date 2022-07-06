@@ -1,20 +1,108 @@
-<div class="container">
+<div class="container-home" data-controller="movies-swiper">
+  <div class="movies-show ">
 
-  <h1>Top rated movies</h1>
 
-  <div class="list-top-movies">
-    <% @movies.each do |movie| %>
-      <div class="card">
-        <%= link_to movie_path(movie) do %>
-          <%= image_tag movie.poster_url, alt: "Affiche film", class:'movie-image'%>
-          <div class="card-infos">
-            <div>
-              <h2><%= movie.title %></h2>
+    <div class="movies-show-list" data-action="mouseover->movies-swiper#showArrows mouseout->movies-swiper#hideArrows">
+      <h1>Now playing movies</h1>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <% @movies_current.each do |movie| %>
+            <div class="swiper-slide">
+              <div class="movies-show-card img" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
+                                                data-movies-swiper-target="movie"
+                                                data-movie-id= "<%= movie.id %>" >
+                <%= image_tag movie.poster_url, alt: "Affiche film"%>
+                <div class="movies-show-card-buttons" data-movies-swiper-target="button" data-movie-id="<%= movie.id %>">
+                  <i class="fab fa-gratipay card-movie-button"></i>
+                  <i class="fa-solid fa-circle-plus card-movie-button"></i>
+                  <i class="fas fa-info-circle card-movie-button"></i>
+                </div>
+                <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= movie.id %>">
+                  <h6><%= movie.title.truncate(34) %></h6>
+                  <p> <%= movie.overview.truncate(90) %></p>
+                  <div class="movies-show-card-footer">
+                    <p><%= movie.rating %> <i class="fa-solid fa-star" style="font-size: 12px"></i>  <%="(#{movie.vote_count} reviews)"  %></p>
+                  </div>
+                </div>
+              </div>
             </div>
-          <h2 class="card-rating"><i class="fa-solid fa-circle-plus"></i></h2>
-          </div>
-        <% end %>
+          <%end%>
+        </div>
       </div>
-    <% end %>
+    </div>
+
+    <div class="movies-show-list" data-action="mouseover->movies-swiper#showArrows mouseout->movies-swiper#hideArrows">
+      <h1>Upcoming movies</h1>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <% @movies_upcoming.each do |movie| %>
+            <div class="swiper-slide">
+              <div class="movies-show-card img" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
+                                                data-movies-swiper-target="movie"
+                                                data-movie-id= "<%= movie.id %>" >
+                <%= link_to movie_path(movie) do %>
+                  <%= image_tag movie.poster_url, alt: "Affiche film", data: {movies_swiper_target: "image", movie_id: movie.id }%>
+                  <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= movie.id %>">
+                    <h6><%= movie.title %></h6>
+                    <p> <%= movie.overview.truncate(90) %></p>
+                    <div class="movie-show-card-footer"></div>
+                    <p><%= movie.rating %> <i class="fa-solid fa-star" style="font-size: 12px"></i>  <%="(#{movie.vote_count} reviews)"  %></p>
+                  </div>
+                <%end%>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
+
+    <div class="movies-show-list" data-action="mouseover->movies-swiper#showArrows mouseout->movies-swiper#hideArrows">
+      <h1>Most popular movies</h1>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <% @movies_popular.each do |movie| %>
+            <div class="swiper-slide">
+              <div class="movies-show-card" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
+                                                data-movies-swiper-target="movie"
+                                                data-movie-id= "<%= movie.id %>" >
+                <%= link_to movie_path(movie) do %>
+                  <%= image_tag movie.poster_url, alt: "Affiche film", data: {movies_swiper_target: "image", movie_id: movie.id }%>
+                  <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= movie.id %>">
+                    <h6><%= movie.title %></h6>
+                    <p> <%= movie.overview.truncate(90) %></p>
+                    <div class="movie-show-card-footer"></div>
+                    <p><%= movie.rating %> <i class="fa-solid fa-star" style="font-size: 12px"></i>  <%="(#{movie.vote_count} reviews)"  %></p>
+                  </div>
+                <%end%>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
+
+    <div class="movies-show-list" data-action="mouseover->movies-swiper#showArrows mouseout->movies-swiper#hideArrows">
+      <h1>Top rated movies</h1>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <% @movies_rated.each do |movie| %>
+            <div class="swiper-slide">
+              <div class="movies-show-card img" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
+                                                data-movies-swiper-target="movie"
+                                                data-movie-id= "<%= movie.id %>" >
+                <%= link_to movie_path(movie) do %>
+                  <%= image_tag movie.poster_url, alt: "Affiche film", data: {movies_swiper_target: "image", movie_id: movie.id }%>
+                  <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= movie.id %>">
+                    <h6><%= movie.title %></h6>
+                    <p> <%= movie.overview.truncate(90) %></p>
+                    <p><%= "#{movie.rating} (#{movie.vote_count})"  %></p>
+                  </div>
+                <%end%>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

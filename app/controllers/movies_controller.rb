@@ -1,8 +1,13 @@
 require 'open-uri'
 
 class MoviesController < ApplicationController
+
   def home
     @movies = Movie.all
+    @movies_current = Movie.where(category: 'now_playing')
+    @movies_upcoming = Movie.where(category: 'upcoming')
+    @movies_popular = Movie.where(category: 'popular')
+    @movies_rated = Movie.where(category: 'rated')
     @bookmark = Bookmark.new
   end
 

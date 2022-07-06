@@ -1,3 +1,89 @@
 // Place all the styles related to the movies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+.swiper {
+
+  &-container {
+    overflow: hidden;
+  }
+
+  &-wrapper {
+    padding: 18px 0 18px 16px;
+  }
+}
+
+
+.movies-show {
+
+  &-list {
+    margin-top: 1rem;
+  }
+
+  &-card {
+    width: 95%;
+    position: relative;
+
+    &-buttons {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 2s ease-in;
+    }
+
+    &-infos {
+      background-color: rgba(0, 0, 0, 0.5);
+      height: 0%;
+      overflow: hidden;
+      position: absolute;
+      bottom: 0%;
+      border-bottom-right-radius: 8px;
+      border-bottom-left-radius: 8px;
+      transition: all 0.4s ease-in;
+    }
+
+    &-footer {
+      display: flex;
+      justify-content: right;
+      align-items: flex-start;
+
+      p {
+        margin-top: -6px;
+      }
+    }
+
+    img {
+      border-radius: 8px;
+      height: auto;
+      width: 100%;
+      object-fit: cover;
+      }
+
+
+  }
+}
+
+
+
+.swiper-button-next, .swiper-button-prev {
+  top: 32% !important;
+  right: 4px !important;
+  color: lightgrey !important;
+}
+
+.swiper-button-prev {
+  margin-left: 28px;
+}
+
+.card-movie-button {
+  color: white;
+  font-size: 20px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

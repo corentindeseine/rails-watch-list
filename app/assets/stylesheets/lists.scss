@@ -1,15 +1,4 @@
-.list-top-movies {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 16px;
-  margin-top: 16px;
-}
 
-.movie-image {
-  height: 160px;
-  width: 100%;
-  object-fit: cover;
-}
 
 .list-card {
   background-image: url(list-image.jpeg);
@@ -17,11 +6,6 @@
   height: 160px;
   width: 100%;
   object-fit: cover;
-}
-
-.summary-list {
-  display: grid;
-  grid-template-columns: 1fr;
 }
 
 .list-card {
