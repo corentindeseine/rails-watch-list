@@ -6,7 +6,9 @@
 .swiper {
 
   &-container {
+    position: relative;
     overflow: hidden;
+
   }
 
   &-wrapper {
@@ -16,6 +18,31 @@
 
 
 .movies-show {
+
+  &-like {
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 8px;
+    margin-left: 6%;
+
+    img {
+      border-radius: 8px;
+      height: auto;
+      width: 100%;
+      }
+
+    &-infos {
+      position: absolute;
+      top: 0px;
+      right: -65%;
+      width: 65%;
+      height: fit-content;
+      text-align: justify;
+      text-justify: inter-word;
+      padding: 0 12px 12px 12px;
+    }
+  }
 
   &-list {
     margin-top: 1rem;
@@ -27,33 +54,32 @@
 
     &-buttons {
       position: absolute;
-      right: 8px;
-      top: 8px;
-      display: none;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 2s ease-in;
+      right: 12px;
+      bottom: 6px;
+
+      i {
+        font-size: 20px;
+      }
+    }
+
+    &-rating {
+      margin-top: -4px;
+      margin-bottom: 8px;
+
+      i {
+        font-size: 14px;
+      }
     }
 
     &-infos {
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0, 0, 0, 0.6);
       height: 0%;
       overflow: hidden;
       position: absolute;
       bottom: 0%;
       border-bottom-right-radius: 8px;
       border-bottom-left-radius: 8px;
-      transition: all 0.4s ease-in;
-    }
-
-    &-footer {
-      display: flex;
-      justify-content: right;
-      align-items: flex-start;
-
-      p {
-        margin-top: -6px;
-      }
+      transition: all 0.3s ease-in;
     }
 
     img {
@@ -67,16 +93,44 @@
   }
 }
 
+.movie-show-arrows {
+  z-index: 10;
+  position: absolute;
+  opacity: 0.4;
+  font-size: 32px;
+  transition: all 0.2s ease-in;
+  padding: 24px 12px;
+  border-radius: 4px;
 
-
-.swiper-button-next, .swiper-button-prev {
-  top: 32% !important;
-  right: 4px !important;
-  color: lightgrey !important;
+  &:hover {
+    opacity: 0.6;
+    background-color: black;
+  }
 }
 
-.swiper-button-prev {
-  margin-left: 28px;
+.button-prev {
+  left: 0.5%;
+  top: 30%;
+
+  &-like {
+    left: 0.5%;
+    top: 32%;
+  }
+
+}
+
+.button-next {
+  right: 0.5%;
+  top: 30%;
+
+  &-like {
+    right: 0.5%;
+    top: 32%;
+  }
+}
+
+.swiper-button-disabled {
+  display: none;
 }
 
 .card-movie-button {

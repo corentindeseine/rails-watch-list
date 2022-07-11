@@ -13,44 +13,6 @@ puts 'Cleaning up database...'
 Movie.destroy_all
 puts 'Database cleaned'
 
-# CREATION FILM TOP RATED
-
-url = "http://tmdb.lewagon.com/movie/top_rated"
-1.times do |i|
-  movies = JSON.parse(URI.open("#{url}?page=#{i + 1}").read)['results']
-  movies.each do |movie|
-    puts "Creating #{movie['title']}"
-    base_poster_url = "https://image.tmdb.org/t/p/original"
-    Movie.create(
-      title: movie['title'],
-      overview: movie['overview'],
-      poster_url: "#{base_poster_url}#{movie['backdrop_path']}",
-      rating: movie['vote_average'],
-      vote_count: movie['vote_count'],
-      category: 'rated'
-    )
-  end
-end
-
-# CREATION FILM POPULAR
-
-url = "http://tmdb.lewagon.com/movie/popular"
-1.times do |i|
-  movies = JSON.parse(URI.open("#{url}?page=#{i + 1}").read)['results']
-  movies.each do |movie|
-    puts "Creating #{movie['title']}"
-    base_poster_url = "https://image.tmdb.org/t/p/original"
-    Movie.create!(
-      title: movie['title'],
-      overview: movie['overview'],
-      poster_url: "#{base_poster_url}#{movie['backdrop_path']}",
-      rating: movie['vote_average'],
-      vote_count: movie['vote_count'],
-      category: 'popular'
-    )
-  end
-end
-
 # CREATION FILM AU CINEMA
 
 url = "http://tmdb.lewagon.com/movie/now_playing"
@@ -59,11 +21,14 @@ url = "http://tmdb.lewagon.com/movie/now_playing"
   movies.each do |movie|
     puts "Creating #{movie['title']}"
     base_poster_url = "https://image.tmdb.org/t/p/original"
-    Movie.create!(
+
+    next if Movie.where(title: movie['title']).count.positive?
+
+    Movie.create(
       title: movie['title'],
       overview: movie['overview'],
       poster_url: "#{base_poster_url}#{movie['backdrop_path']}",
-      rating: movie['vote_average'],
+      rating: movie['vote_average'] / 2,
       vote_count: movie['vote_count'],
       category: 'now_playing'
     )
@@ -78,13 +43,60 @@ url = "http://tmdb.lewagon.com/movie/upcoming"
   movies.each do |movie|
     puts "Creating #{movie['title']}"
     base_poster_url = "https://image.tmdb.org/t/p/original"
-    Movie.create!(
+
+    next if Movie.where(title: movie['title']).count.positive?
+
+    Movie.create(
       title: movie['title'],
       overview: movie['overview'],
       poster_url: "#{base_poster_url}#{movie['backdrop_path']}",
-      rating: movie['vote_average'],
+      rating: movie['vote_average'] / 2,
       vote_count: movie['vote_count'],
       category: 'upcoming'
+    )
+  end
+end
+
+# CREATION FILM TOP RATED
+
+url = "http://tmdb.lewagon.com/movie/top_rated"
+1.times do |i|
+  movies = JSON.parse(URI.open("#{url}?page=#{i + 1}").read)['results']
+  movies.each do |movie|
+    puts "Creating #{movie['title']}"
+    base_poster_url = 'https://image.tmdb.org/t/p/original'
+
+    next if Movie.where(title: movie['title']).count.positive?
+
+    Movie.create(
+      title: movie['title'],
+      overview: movie['overview'],
+      poster_url: "#{base_poster_url}#{movie['backdrop_path']}",
+      rating: movie['vote_average'] / 2,
+      vote_count: movie['vote_count'],
+      category: 'rated'
+    )
+  end
+end
+
+# CREATION FILM POPULAR
+
+url = "http://tmdb.lewagon.com/movie/popular"
+1.times do |i|
+  movies = JSON.parse(URI.open("#{url}?page=#{i + 1}").read)['results']
+  movies.each do |movie|
+    puts "Creating #{movie['title']}"
+    base_poster_url = "https://image.tmdb.org/t/p/original"
+
+    next if Movie.where(title: movie['title']).count.positive?
+
+    Movie.create(
+      title: movie['title'],
+      overview: movie['overview'],
+      poster_url: "#{base_poster_url}#{movie['backdrop_path']}",
+      rating: movie['vote_average'] / 2,
+      vote_count: movie['vote_count'],
+      category: 'popular'
     )
   end
 end

@@ -1,107 +1,175 @@
 <div class="container-home" data-controller="movies-swiper">
   <div class="movies-show ">
 
-
-    <div class="movies-show-list" data-action="mouseover->movies-swiper#showArrows mouseout->movies-swiper#hideArrows">
-      <h1>Now playing movies</h1>
-      <div class="swiper-container">
+    <div class="movies-show-list">
+      <div class="swiper-container swiper-container-list" data-action="mouseover->movies-swiper#showArrowsLike mouseout->movies-swiper#hideArrowsLike">
         <div class="swiper-wrapper">
           <% @movies_current.each do |movie| %>
             <div class="swiper-slide">
-              <div class="movies-show-card img" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
+              <div class="movies-show-like" data-action="mouseover->movies-swiper#zoomLike mouseout->movies-swiper#dezoomLike"
+                                            data-movies-swiper-target="movie"
+                                            data-movie-id= "<%= movie.id %>" >
+                <div>
+                  <%= image_tag movie.poster_url, alt: "Affiche film"%>
+                </div>
+                <div class="movies-show-like-infos">
+                  <h3> <%= movie.title %> </h3>
+                  <div class="movies-show-card-rating">
+                    <% (movie.rating.to_i).times do %>
+                      <i class="fa-solid fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <% if movie.rating - movie.rating.to_i >= 0.5 %>
+                      <i class="fa-solid fa-star-half-stroke" style="font-size: 12px"></i>
+                    <% elsif movie.rating - movie.rating.to_i != 0%>
+                      <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <% (5 - movie.rating.ceil).times do %>
+                      <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <i><%="#{movie.rating * 2} - #{movie.vote_count} reviews"  %></i>
+                  </div>
+                  <div style="color: #10ea96" class="my-3">
+                    <i style="font-style: initial">I've already liked this movie</i>
+                    <i class="fa-solid fa-heart"></i>
+                  </div>
+                  <p> <%= movie.overview.truncate(200) %></p>
+                </div>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      <div class="button-prev-like button-prev-like movie-show-arrows" data-movies-swiper-target="arrow1"><i class="fa-solid fa-chevron-left"></i></div>
+      <div class="button-next-like button-next-like movie-show-arrows" data-movies-swiper-target="arrow1"><i class="fa-solid fa-chevron-right"></i></div>
+      </div>
+    </div>
+
+
+    <div class="movies-show-list">
+      <h1>Now playing movies</h1>
+      <div class="swiper-container swiper-container-now-playing" data-action="mouseover->movies-swiper#showArrowsNow mouseout->movies-swiper#hideArrowsNow">
+        <div class="swiper-wrapper">
+          <% @movies_current.each do |movie| %>
+            <div class="swiper-slide">
+              <div class="movies-show-card" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
                                                 data-movies-swiper-target="movie"
                                                 data-movie-id= "<%= movie.id %>" >
                 <%= image_tag movie.poster_url, alt: "Affiche film"%>
-                <div class="movies-show-card-buttons" data-movies-swiper-target="button" data-movie-id="<%= movie.id %>">
-                  <i class="fab fa-gratipay card-movie-button"></i>
-                  <i class="fa-solid fa-circle-plus card-movie-button"></i>
-                  <i class="fas fa-info-circle card-movie-button"></i>
-                </div>
                 <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= movie.id %>">
-                  <h6><%= movie.title.truncate(34) %></h6>
-                  <p> <%= movie.overview.truncate(90) %></p>
-                  <div class="movies-show-card-footer">
-                    <p><%= movie.rating %> <i class="fa-solid fa-star" style="font-size: 12px"></i>  <%="(#{movie.vote_count} reviews)"  %></p>
+                  <h6><%= movie.title.truncate(30) %></h6>
+                  <div class="movies-show-card-rating">
+                    <% (movie.rating.to_i).times do %>
+                      <i class="fa-solid fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <% if movie.rating - movie.rating.to_i >= 0.5 %>
+                      <i class="fa-solid fa-star-half-stroke" style="font-size: 12px"></i>
+                    <% elsif movie.rating - movie.rating.to_i != 0%>
+                      <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <% (5 - movie.rating.ceil).times do %>
+                      <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <i><%="#{movie.rating * 2} - #{movie.vote_count} reviews"  %></i>
+                  </div>
+                  <p> <%= movie.overview.truncate(110) %></p>
+                  <div class="movies-show-card-buttons">
+                    <%= link_to movie_path(movie), remote: true do %>
+                      <i class="fas fa-info-circle card-movie-button"></i>
+                    <% end %>
+                    <i class="fa-solid fa-circle-plus card-movie-button"></i>
                   </div>
                 </div>
               </div>
             </div>
           <%end%>
         </div>
+      <div class="button-prev button-prev-now movie-show-arrows d-none" data-movies-swiper-target="arrow2"><i class="fa-solid fa-chevron-left"></i></div>
+      <div class="button-next button-next-now movie-show-arrows d-none" data-movies-swiper-target="arrow2"><i class="fa-solid fa-chevron-right"></i></div>
       </div>
     </div>
 
-    <div class="movies-show-list" data-action="mouseover->movies-swiper#showArrows mouseout->movies-swiper#hideArrows">
-      <h1>Upcoming movies</h1>
-      <div class="swiper-container">
+    <div class="movies-show-list">
+      <h1>Top rated movies</h1>
+      <div class="swiper-container-rated swiper-container" data-action="mouseover->movies-swiper#showArrowsRated mouseout->movies-swiper#hideArrowsRated">
         <div class="swiper-wrapper">
-          <% @movies_upcoming.each do |movie| %>
+          <% @movies_top_rated.each do |movie| %>
             <div class="swiper-slide">
-              <div class="movies-show-card img" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
+              <div class="movies-show-card" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
                                                 data-movies-swiper-target="movie"
                                                 data-movie-id= "<%= movie.id %>" >
-                <%= link_to movie_path(movie) do %>
-                  <%= image_tag movie.poster_url, alt: "Affiche film", data: {movies_swiper_target: "image", movie_id: movie.id }%>
-                  <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= movie.id %>">
-                    <h6><%= movie.title %></h6>
-                    <p> <%= movie.overview.truncate(90) %></p>
-                    <div class="movie-show-card-footer"></div>
-                    <p><%= movie.rating %> <i class="fa-solid fa-star" style="font-size: 12px"></i>  <%="(#{movie.vote_count} reviews)"  %></p>
+                <%= image_tag movie.poster_url, alt: "Affiche film"%>
+                <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= movie.id %>">
+                  <h6><%= movie.title.truncate(30) %></h6>
+                  <div class="movies-show-card-rating">
+                    <% (movie.rating.to_i).times do %>
+                      <i class="fa-solid fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <% if movie.rating - movie.rating.to_i >= 0.5 %>
+                      <i class="fa-solid fa-star-half-stroke" style="font-size: 12px"></i>
+                    <% elsif movie.rating - movie.rating.to_i != 0%>
+                      <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <% (5 - movie.rating.ceil).times do %>
+                      <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <i><%="#{movie.rating * 2} - #{movie.vote_count} reviews"  %></i>
                   </div>
-                <%end%>
+                  <p> <%= movie.overview.truncate(110) %></p>
+                  <div class="movies-show-card-buttons">
+                    <%= link_to movie_path(movie), remote: true do %>
+                      <i class="fas fa-info-circle card-movie-button"></i>
+                    <% end %>
+                    <i class="fa-solid fa-circle-plus card-movie-button"></i>
+                  </div>
+                </div>
               </div>
             </div>
           <%end%>
         </div>
+      <div class="button-prev button-prev-rated movie-show-arrows d-none" data-movies-swiper-target="arrow3"><i class="fa-solid fa-chevron-left"></i></div>
+      <div class="button-next button-next-rated movie-show-arrows d-none" data-movies-swiper-target="arrow3"><i class="fa-solid fa-chevron-right"></i></div>
       </div>
     </div>
 
-    <div class="movies-show-list" data-action="mouseover->movies-swiper#showArrows mouseout->movies-swiper#hideArrows">
+    <div class="movies-show-list">
       <h1>Most popular movies</h1>
-      <div class="swiper-container">
+      <div class="swiper-container-popular swiper-container" data-action="mouseover->movies-swiper#showArrowsPopular mouseout->movies-swiper#hideArrowsPopular">
         <div class="swiper-wrapper">
           <% @movies_popular.each do |movie| %>
             <div class="swiper-slide">
               <div class="movies-show-card" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
                                                 data-movies-swiper-target="movie"
                                                 data-movie-id= "<%= movie.id %>" >
-                <%= link_to movie_path(movie) do %>
-                  <%= image_tag movie.poster_url, alt: "Affiche film", data: {movies_swiper_target: "image", movie_id: movie.id }%>
-                  <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= movie.id %>">
-                    <h6><%= movie.title %></h6>
-                    <p> <%= movie.overview.truncate(90) %></p>
-                    <div class="movie-show-card-footer"></div>
-                    <p><%= movie.rating %> <i class="fa-solid fa-star" style="font-size: 12px"></i>  <%="(#{movie.vote_count} reviews)"  %></p>
+                <%= image_tag movie.poster_url, alt: "Affiche film"%>
+                <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= movie.id %>">
+                  <h6><%= movie.title.truncate(30) %></h6>
+                  <div class="movies-show-card-rating">
+                    <% (movie.rating.to_i).times do %>
+                      <i class="fa-solid fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <% if movie.rating - movie.rating.to_i >= 0.5 %>
+                      <i class="fa-solid fa-star-half-stroke" style="font-size: 12px"></i>
+                    <% elsif movie.rating - movie.rating.to_i != 0%>
+                      <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <% (5 - movie.rating.ceil).times do %>
+                      <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                    <% end %>
+                    <i><%="#{movie.rating * 2} - #{movie.vote_count} reviews"  %></i>
                   </div>
-                <%end%>
+                  <p> <%= movie.overview.truncate(110) %></p>
+                  <div class="movies-show-card-buttons">
+                    <%= link_to movie_path(movie), remote: true do %>
+                      <i class="fas fa-info-circle card-movie-button"></i>
+                    <% end %>
+                    <i class="fa-solid fa-circle-plus card-movie-button"></i>
+                  </div>
+                </div>
               </div>
             </div>
           <%end%>
         </div>
-      </div>
-    </div>
-
-    <div class="movies-show-list" data-action="mouseover->movies-swiper#showArrows mouseout->movies-swiper#hideArrows">
-      <h1>Top rated movies</h1>
-      <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <% @movies_rated.each do |movie| %>
-            <div class="swiper-slide">
-              <div class="movies-show-card img" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
-                                                data-movies-swiper-target="movie"
-                                                data-movie-id= "<%= movie.id %>" >
-                <%= link_to movie_path(movie) do %>
-                  <%= image_tag movie.poster_url, alt: "Affiche film", data: {movies_swiper_target: "image", movie_id: movie.id }%>
-                  <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= movie.id %>">
-                    <h6><%= movie.title %></h6>
-                    <p> <%= movie.overview.truncate(90) %></p>
-                    <p><%= "#{movie.rating} (#{movie.vote_count})"  %></p>
-                  </div>
-                <%end%>
-              </div>
-            </div>
-          <%end%>
-        </div>
+      <div class="button-prev button-prev-popular movie-show-arrows d-none" data-movies-swiper-target="arrow4"><i class="fa-solid fa-chevron-left"></i></div>
+      <div class="button-next button-next-popular movie-show-arrows d-none" data-movies-swiper-target="arrow4"><i class="fa-solid fa-chevron-right"></i></div>
       </div>
     </div>
   </div>

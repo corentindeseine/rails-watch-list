@@ -1,10 +1,12 @@
 .navbar-lewagon {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: #5b5b5b;
+  background: rgba(40,40,40,0.9);
   padding: 8px 16px;
   color: white;
+  position: sticky;
+  top: 0;
+  z-index: 3;
 }
 
 .navbar-lewagon a {

@@ -21,14 +21,14 @@
 }
 
 .container-home {
-  position: relative;
   min-height: 90%;
   width: 100%;
   padding-left: 1.2rem;
+  padding-right: 0.5rem;
 }
 
 body {
-  background-color: rgb(40, 40, 40);
+  background: rgb(40,40,40);
   color: white;
 }
 
@@ -39,14 +39,13 @@ h1 {
   font-size: 1.5rem;
 }
 
-a {
-  text-decoration: none;
 
-  &:hover{
-  text-decoration: none;
-  }
+h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  color: white;
+  font-size: 1.8rem;
 }
-
 h6 {
   font-family: 'Roboto', sans-serif;
   font-weight: 100;
@@ -59,4 +58,12 @@ p {
   font-weight: 400;
   color: white;
   font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover{
+  text-decoration: none;
+  }
 }
