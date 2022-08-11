@@ -4,7 +4,7 @@ export default class extends Controller {
   static values = { lists: Array, like: Number  }
 
   connect() {
-    console.log(this.listsValue)
+
   }
 
   toLikeFull (event) {
@@ -17,5 +17,9 @@ export default class extends Controller {
       event.target.classList.remove('fa-solid')
       event.target.classList.add('fa-regular')
     }
+  }
+
+  showConfirm (event) {
+    console.log(event.target.innerHTML)
   }
 }

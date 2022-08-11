@@ -1,9 +1,44 @@
-<h1><%= @list.name %></h1>
-
-<div class='summary-movie'>
-  <% @bookmarks.each do |bookmark| %>
-    <div class='movie'><%= bookmark.movie.title if bookmark.list_id == @list.id %></div>
-  <% end %>
+<div data-controller="movies-swiper" class='container-fluid'>
+  <div>
+    <h1 class='list-show-name'><%= @list.name %></h1>
+    <div class="list-cards-index" data-search-movies-target = "list">
+      <% @bookmarks.each do |bookmark| %>
+        <% if bookmark.list_id == @list.id %>
+          <div class="movies-show-card" data-action="mouseenter->movies-swiper#zoomCardIndex mouseleave->movies-swiper#dezoomCard"
+                                        data-movies-swiper-target="movie"
+                                        data-movie-id= "<%= bookmark.movie.id %>" >
+            <%= image_tag bookmark.movie.poster_url, alt: "Affiche film"%>
+            <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= bookmark.movie.id %>">
+              <h6><%= bookmark.movie.title%></h6>
+              <div class="movie-genres">
+                <% bookmark.movie.genres.split(',').first(3).each do |genre| %>
+                  <p class="movie-genres-item"> <%= genre.gsub(/[^0-9a-z ]/i, '') %></p>
+                <% end %>
+              </div>
+              <p> <%= bookmark.movie.overview.truncate(200) %></p>
+              <div class="movies-show-card-rating">
+                <% (bookmark.movie.rating.to_i).times do %>
+                  <i class="fa-solid fa-star" style="font-size: 12px"></i>
+                <% end %>
+                <% if bookmark.movie.rating - bookmark.movie.rating.to_i >= 0.5 %>
+                  <i class="fa-solid fa-star-half-stroke" style="font-size: 12px"></i>
+                <% elsif bookmark.movie.rating - bookmark.movie.rating.to_i != 0%>
+                  <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                <% end %>
+                <% (5 - bookmark.movie.rating.ceil).times do %>
+                  <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                <% end %>
+                <i><%="#{bookmark.movie.rating * 2} (#{bookmark.movie.vote_count} reviews)"  %></i>
+              </div>
+              <div class="movies-show-card-buttons">
+                <%= link_to movie_path(bookmark.movie) do %>
+                  <i class="fas fa-info-circle card-movie-button"></i>
+                <%end%>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <%end%>
+    </div>
+  </div>
 </div>
-
-<div>

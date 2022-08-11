@@ -16,6 +16,10 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     @bookmark = Bookmark.new
     @lists = List.all
+    @lists_form = []
+    @lists.each do |list|
+      @lists_form << list unless @movie.bookmarks.map(&:list_id).include? list.id
+    end
   end
 
   def index

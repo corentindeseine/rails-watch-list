@@ -20,7 +20,7 @@
           <%= f.input :list_id,
                       as: :select,
                       prompt: 'Add to a list',
-                      collection: @lists,
+                      collection: @lists_form,
                       label: false,
                       input_html: {
                         data: {action: "input->movie-show#showConfirm"}
