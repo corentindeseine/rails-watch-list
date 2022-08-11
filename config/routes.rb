@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'movies#home'
   resources :lists, only: %i[index show new create]
   resources :bookmarks, only: :destroy
-  resources :movies, only: %i[show index] do
+  resources :movies, only: %i[show index update] do
     resources :bookmarks, only: %i[new create]
   end
 end

@@ -4,10 +4,18 @@
       <%= link_to image_tag("popcorn.png", alt: "Movie", width: 60), root_path  %>
   </div>
   <div>
-    <%= link_to 'HOME', root_path  %>
-    <%= link_to 'SEARCH', lists_path  %>
-    <%= link_to 'MY LISTS', lists_path  %>
-    <%= link_to 'MOVIES', new_list_path  %>
+  <%= link_to(root_path) do %>
+    <i class="fa-solid fa-house-chimney"></i>
+    <i class="hover-underline-animation">Home</i>
+  <% end  %>
+    <%= link_to(movies_path) do %>
+      <i class="fa-solid fa-film"></i>
+      <i class="hover-underline-animation">Movies</i>
+  <% end  %>
+    <%= link_to(lists_path) do %>
+      <i class="fa-solid fa-bars-staggered"></i>
+      <i class="hover-underline-animation">My lists</i>
+  <% end  %>
   </div>
 </div>
 

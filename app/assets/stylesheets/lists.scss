@@ -1,16 +1,57 @@
 
+.lists {
+  &-container {
+    padding: 8% 12% 2% 12%;
 
-.list-card {
-  background-image: url(list-image.jpeg);
-  object-fit: cover;
-  height: 160px;
-  width: 100%;
-  object-fit: cover;
+    &-new {
+      padding: 10% 30%;
+    }
+  }
+
+  &-card {
+    background-size: cover;
+    background-color: rgb(60,60,60);
+    background-position: 50% 60%;
+    width: 100%;
+    height: 14rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 0 auto;
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    margin-bottom: 40px;
+
+    &-add {
+      font-size: 4rem;
+      border: 4px solid white;
+      border-radius: 50%;
+      padding: 6px;
+
+      &:hover {
+      color: #10ea96;
+      border: 4px solid #10ea96;
+      }
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 4rem;
+    }
+  }
 }
 
-.list-card {
-  margin: 16px;
-  text-align: center;
-  color: white;
+.new-list-button {
+  background-color:rgb(120,120,120);
+  border-color: rgb(120,120,120);
+
+  &:hover{
+    background-color:#10ea96;
+    border-color: #10ea96;
+  }
 
 }

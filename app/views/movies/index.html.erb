@@ -1,7 +1,15 @@
-<div>
-<div>
-<% @movies.each do |movie| %>
-  <%= movie.title %>
-<% end %>
-</div>
+<div data-controller="movies-swiper">
+  <div data-controller = "search-movies">
+    <%= form_with url: movies_path, method: :get, html: {class:
+      "mb-4", data: {search_movies_target: "form"}} do |f| %>
+      <%= f.text_field :query,
+                      class: "form-control-movie",
+                      placeholder: "Search movies by title or genres ...",
+                      value: params[:query],
+                      data: {search_movies_target: "input",
+                             action: "keyup->search-movies#update"
+                      } %>
+    <% end %>
+  <%= render 'list', movies: @movies %>
+  </div>
 </div>

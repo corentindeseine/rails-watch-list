@@ -1,15 +1,19 @@
-<div class= 'container'>
-  <h1>Lists</h1>
-
-  <div class=''>
-    <% @lists.each do |list| %>
-      <div class="card" >
-        <%= link_to list_path(list) do%>
-          <div class="list-card">
-              <h2><%= list.name %></h2>
+<div class="container-fluid" data-controller="list-index">
+  <div class="lists-container">
+    <div class="lists">
+      <% @lists.each do |list| %>
+        <%= link_to list_path(list) do %>
+          <div class='lists-card' data-action="mouseenter->list-index#zoomCardIndex mouseleave->list-index#dezoomCardIndex"
+                                  style=" background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('<%= cl_image_path list.photo.key, crop: :fill %>')">
+            <h1> <%= list.name.upcase! %> </h1>
           </div>
         <% end %>
-      </div>
-    <% end %>
+      <%end%>
+    </div>
+      <%= link_to new_list_path do %>
+        <div class='lists-card' data-action="mouseenter->list-index#zoomCardIndex mouseleave->list-index#dezoomCardIndex">
+        <i class="fa-solid fa-plus lists-card-add"></i>
+      <% end %>
+    </div>
   </div>
 </div>

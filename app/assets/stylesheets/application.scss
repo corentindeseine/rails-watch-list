@@ -14,10 +14,16 @@
 @import "pages/index";
 
 
+
+html {
+  height: 100%;
+}
+
+
 .container-fluid {
   min-height: 90%;
   width: 100%;
-  padding: 0 1rem;
+  padding: 2 2rem;
 }
 
 .container-home {
@@ -30,6 +36,7 @@
 body {
   background: rgb(40,40,40);
   color: white;
+  height: 100%;
 }
 
 h1 {
@@ -61,9 +68,14 @@ p {
 }
 
 a {
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  font-size: 1rem;
   text-decoration: none;
+
 
   &:hover{
   text-decoration: none;
+  color:white;
   }
 }

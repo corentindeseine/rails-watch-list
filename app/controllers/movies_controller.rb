@@ -4,6 +4,7 @@ class MoviesController < ApplicationController
 
   def home
     @movies = Movie.all
+    @movies_liked = Movie.where(like: 1)
     @movies_current = Movie.where(category: 'now_playing')
     @movies_upcoming = Movie.where(category: 'upcoming')
     @movies_top_rated = Movie.where(category: 'rated')
@@ -13,17 +14,29 @@ class MoviesController < ApplicationController
 
   def show
     @movie = Movie.find(params[:id])
-    respond_to do |format|
-      format.js
-    end
+    @bookmark = Bookmark.new
+    @lists = List.all
   end
 
   def index
-    if params[:query].present?
-      @movies = Movie.where('title ILIKE ?', "%#{params[:query]}%")
-    else
-      @movies = Movie.all
+    @movies = Movie.all
+    sql_query = 'title ILIKE :query OR genres ILIKE :query'
+    @movies = @movies.where(sql_query, query: "%#{params[:query]}%") if params[:query].present?
+    respond_to do |format|
+      format.html # Follow regular flow of Rails
+      format.text { render partial: 'list', locals: { movies: @movies }, formats: [:html] }
     end
+  end
+
+  def update
+    @movie = Movie.find(params[:id])
+    if @movie.like.zero?
+      @movie.update(like: 1)
+    else
+      @movie.update(like: 0)
+    end
+    redirect_to movie_path(@movie)
+
   end
 
   private

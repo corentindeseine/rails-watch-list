@@ -1,0 +1,38 @@
+    <div class="cards-index" data-search-movies-target = "list">
+      <% movies.each do |movie| %>
+          <div class="movies-show-card" data-action="mouseenter->movies-swiper#zoomCardIndex mouseleave->movies-swiper#dezoomCard"
+                                        data-movies-swiper-target="movie"
+                                        data-movie-id= "<%= movie.id %>" >
+            <%= image_tag movie.poster_url, alt: "Affiche film"%>
+            <div class="movies-show-card-infos" data-movies-swiper-target="infos" data-movie-id="<%= movie.id %>">
+              <h6><%= movie.title.truncate(35)%></h6>
+              <div class="movie-genres">
+                <% movie.genres.split(',').first(3).each do |genre| %>
+                  <p class="movie-genres-item"> <%= genre.gsub(/[^0-9a-z ]/i, '') %></p>
+                <% end %>
+              </div>
+              <p> <%= movie.overview.truncate(100) %></p>
+              <div class="movies-show-card-rating">
+                <% (movie.rating.to_i).times do %>
+                  <i class="fa-solid fa-star" style="font-size: 12px"></i>
+                <% end %>
+                <% if movie.rating - movie.rating.to_i >= 0.5 %>
+                  <i class="fa-solid fa-star-half-stroke" style="font-size: 12px"></i>
+                <% elsif movie.rating - movie.rating.to_i != 0%>
+                  <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                <% end %>
+                <% (5 - movie.rating.ceil).times do %>
+                  <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                <% end %>
+                <i><%="#{movie.rating * 2} (#{movie.vote_count} reviews)"  %></i>
+              </div>
+              <div class="movies-show-card-buttons">
+                <i class="fa-solid fa-circle-plus card-movie-button"></i>
+                <%= link_to movie_path(movie) do %>
+                  <i class="fas fa-info-circle card-movie-button"></i>
+                <%end%>
+              </div>
+            </div>
+          </div>
+      <%end%>
+    </div>

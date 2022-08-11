@@ -15,10 +15,28 @@ export default class extends Controller {
     gsap.to(event.currentTarget, {duration: 0.5, transformOrigin: "50% 50%", scale: 1 })
   }
 
+  zoomCardIndex(event) {
+    gsap.timeline();
+    gsap.to(event.currentTarget, {duration: 0.5, transformOrigin: "50% 50%", scale: 1.1 })
+
+    this.infosTargets.forEach((element) => {
+      if (event.currentTarget.dataset.movieId === element.dataset.movieId) {
+        element.style.height = "100%"
+        element.style.padding = "8px 8px"
+        element.style.borderTopLeftRadius = "8px"
+        element.style.borderTopRightRadius = "8px"
+      }
+    })
+
+    this.buttonTargets.forEach((element) => {
+      if (event.currentTarget.dataset.movieId === element.dataset.movieId) {
+        element.style.display = "block"
+      }
+    })
+
+  }
 
   zoomCard(event) {
-    console.log(event.currentTarget)
-
     gsap.timeline();
     gsap.to(event.currentTarget, {duration: 0.5, transformOrigin: "50% 50%", scale: 1.1 })
 

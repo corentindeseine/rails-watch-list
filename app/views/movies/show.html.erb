@@ -1,10 +1,84 @@
-<h1>Movies#show</h1>
-<p>Find me in app/views/movies/show.html.erb</p>
-
-<h5 class="modal-title">Add to a list</h5>
-<%= simple_form_for [@movie, @bookmark] do |f| %>
-<%= f.association :list, collection: List.all.order(:name), prompt: "Select a list", input_html: { data: { controller: "slect2" } } %>
+<div class="movie-show" data-controller="movie-show"
+                        data-movie-show-like-value =" <%= @movie.like %> "
+                        data-movie-show-lists-value=" <%= @lists.map { |list| list.name } %> ">
+  <div class="movie-show-background">
+    <%= image_tag @movie.poster_url, alt: "background film"%>
+  </div>
+  <div class="movie-show-poster">
+    <%= image_tag @movie.poster, alt: "Affiche film"%>
+    <div class="like-movie-container">
+      <%= simple_form_for(@movie) do |f| %>
+        <%= button_tag type: 'submit' do %>
+          <i data-action="mouseover->movie-show#toLikeFull mouseout->movie-show#toLikeEmpty"
+              class="<%= 'fa-regular' if @movie.like == 0 %>
+                    <%= 'fa-solid' if @movie.like == 1 %> fa-heart like-movie"></i>
+        <% end %>
+      <% end %>
+    </div>
+      <div class="movie-show-btn">
+        <%= simple_form_for([@movie, @bookmark]) do |f| %>
+          <%= f.input :list_id,
+                      as: :select,
+                      prompt: 'Add to a list',
+                      collection: @lists,
+                      label: false,
+                      input_html: {
+                        data: {action: "input->movie-show#showConfirm"}
+                      }%>
+          <%= f.submit "Confirm" %>
+        <% end %>
+      </div>
+  </div>
+  <div class="movie-show-like">
+    <h3> <%= @movie.title %></h3>
+    <div class="movies-show-card-rating-like mb-3">
+      <% (@movie.rating.to_i).times do %>
+        <i class="fa-solid fa-star"></i>
+      <% end %>
+      <% if @movie.rating - @movie.rating.to_i >= 0.5 %>
+        <i class="fa-solid fa-star-half-stroke"></i>
+      <% elsif @movie.rating - @movie.rating.to_i != 0%>
+        <i class="fa-regular fa-star"></i>
+      <% end %>
+      <% (5 - @movie.rating.ceil).times do %>
+        <i class="fa-regular fa-star"></i>
+      <% end %>
+      <i><%="#{@movie.rating * 2} (#{@movie.vote_count} reviews)"%></i>
+    </div>
+    <div class="movie-genres">
+      <% @movie.genres.split(',').first(3).each do |genre| %>
+        <p class="movie-genres-item"> <%= genre.gsub(/[^0-9a-z ]/i, '') %></p>
+      <% end %>
+    </div>
+    <p> <%= @movie.release_date.first(4) %> • <%= @movie.runtime %> min</p>
+    <% if @movie.like == 1 %>
+      <div style="color: #10ea96" class="mb-3">
+        <i style="font-style: initial"> You like this movie.</i>
+      </div>
+    <% end %>
+    <div>
+      <p style='font-size: 16px'> Global revenue : <%= @movie.revenue.to_s.reverse.gsub(/...(?=.)/,'\&,').reverse %> $</p>
+    </div>
+    <div class='movie-show-link-container'>
+      <div class='movie-show-link-btn'>
+        <%= link_to 'Check website', '' %>
+      </div>
+      <div class='movie-show-link-btn'>
+        <%= link_to 'Video trailer', '' %>
+      </div>
+    </div>
+    <p style='font-size: 16px'> <%= @movie.overview %></p>
+    <div class='movie-show-casting-container'>
+      <div class="movie-show-casting">
+        <% @movie.cast_image_url.split(',').each_with_index do |image_url, i| %>
+          <div class='movie-show-casting-profil'>
+            <%= image_tag "#{image_url.match(/h.*jpg/i)}" %>
+            <div class='movie-show-casting-name-container'>
+              <p> <%= @movie.cast.split(',')[i].gsub(/[^0-9a-z ]/i, '') %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="modal-footer">
-<%= f.submit "Add movie", class: "btn btn-flat" %>
-<% end %>

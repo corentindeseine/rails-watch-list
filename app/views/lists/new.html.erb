@@ -1,5 +1,10 @@
-<h1>Add a new list</h1>
-<%= simple_form_for [ @list] do |f| %>
-  <%= f.input :name %>
-  <%= f.submit "Add a list", class: "btn btn-primary" %>
-<% end %>
+<div class='container-fluid'>
+  <div class="lists-container-new">
+    <h1>Add a new list</h1>
+    <%= simple_form_for [ @list] do |f| %>
+      <%= f.input :name %>
+      <%= f.input :photo, as: :file %>
+      <%= f.submit "Add a list", class: "btn btn-primary new-list-button" %>
+    <% end %>
+  </div>
+</div>

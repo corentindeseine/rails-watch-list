@@ -3,11 +3,11 @@ class BookmarksController < ApplicationController
     @bookmark = Bookmark.new(bookmark_params)
     @movie = Movie.find(params[:movie_id])
     @bookmark.movie_id = @movie.id
-    @list = @bookmark.list
+    @list = List.find(params[:bookmark][:list_id].to_i)
     if @bookmark.save!
       redirect_to list_path(@list)
     else
-      render :new
+      render 'movie/show'
     end
   end
 

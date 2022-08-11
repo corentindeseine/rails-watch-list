@@ -4,9 +4,9 @@
     <div class="movies-show-list">
       <div class="swiper-container swiper-container-list" data-action="mouseover->movies-swiper#showArrowsLike mouseout->movies-swiper#hideArrowsLike">
         <div class="swiper-wrapper">
-          <% @movies_current.each do |movie| %>
+          <% @movies_liked.each do |movie| %>
             <div class="swiper-slide">
-              <div class="movies-show-like" data-action="mouseover->movies-swiper#zoomLike mouseout->movies-swiper#dezoomLike"
+              <div class="movies-show-like" <%# data-action="mouseenter->movies-swiper#zoomLike mouseleave->movies-swiper#dezoomLike" %>
                                             data-movies-swiper-target="movie"
                                             data-movie-id= "<%= movie.id %>" >
                 <div>
@@ -14,25 +14,34 @@
                 </div>
                 <div class="movies-show-like-infos">
                   <h3> <%= movie.title %> </h3>
-                  <div class="movies-show-card-rating">
+                  <div class="movies-show-card-rating-like">
                     <% (movie.rating.to_i).times do %>
-                      <i class="fa-solid fa-star" style="font-size: 12px"></i>
+                      <i class="fa-solid fa-star"></i>
                     <% end %>
                     <% if movie.rating - movie.rating.to_i >= 0.5 %>
-                      <i class="fa-solid fa-star-half-stroke" style="font-size: 12px"></i>
+                      <i class="fa-solid fa-star-half-stroke"></i>
                     <% elsif movie.rating - movie.rating.to_i != 0%>
-                      <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                      <i class="fa-regular fa-star"></i>
                     <% end %>
                     <% (5 - movie.rating.ceil).times do %>
-                      <i class="fa-regular fa-star" style="font-size: 12px"></i>
+                      <i class="fa-regular fa-star"></i>
                     <% end %>
-                    <i><%="#{movie.rating * 2} - #{movie.vote_count} reviews"  %></i>
+                    <i><%="#{movie.rating * 2} (#{movie.vote_count} reviews)"%></i>
                   </div>
-                  <div style="color: #10ea96" class="my-3">
-                    <i style="font-style: initial">I've already liked this movie</i>
+                  <p> <%= movie.release_date.first(4) %> • <%= movie.runtime %> min</p>
+                  <div style="color: #10ea96" class="mb-3">
+                    <i style="font-style: initial"> You like this movie</i>
                     <i class="fa-solid fa-heart"></i>
                   </div>
-                  <p> <%= movie.overview.truncate(200) %></p>
+                  <div class="movie-genres">
+                    <% movie.genres.split(',').first(3).each do |genre| %>
+                      <p class="movie-genres-item"> <%= genre.gsub(/[^0-9a-z ]/i, '') %></p>
+                    <% end %>
+                  </div>
+                  <p style='font-size: 16px'> <%= movie.overview.truncate(250) %></p>
+                  <div class='more-info'>
+                    <%= link_to "More Information", movie_path(movie), class: 'hover-underline-animation', style:'margin-top: -10px' %>
+                  </div>
                 </div>
               </div>
             </div>
@@ -50,7 +59,7 @@
         <div class="swiper-wrapper">
           <% @movies_current.each do |movie| %>
             <div class="swiper-slide">
-              <div class="movies-show-card" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
+              <div class="movies-show-card" data-action="mouseenter->movies-swiper#zoomCard mouseleave->movies-swiper#dezoomCard"
                                                 data-movies-swiper-target="movie"
                                                 data-movie-id= "<%= movie.id %>" >
                 <%= image_tag movie.poster_url, alt: "Affiche film"%>
@@ -68,14 +77,14 @@
                     <% (5 - movie.rating.ceil).times do %>
                       <i class="fa-regular fa-star" style="font-size: 12px"></i>
                     <% end %>
-                    <i><%="#{movie.rating * 2} - #{movie.vote_count} reviews"  %></i>
+                    <i><%="#{movie.rating * 2} (#{movie.vote_count} reviews)"  %></i>
                   </div>
                   <p> <%= movie.overview.truncate(110) %></p>
                   <div class="movies-show-card-buttons">
-                    <%= link_to movie_path(movie), remote: true do %>
-                      <i class="fas fa-info-circle card-movie-button"></i>
-                    <% end %>
                     <i class="fa-solid fa-circle-plus card-movie-button"></i>
+                    <%= link_to movie_path(movie) do %>
+                      <i class="fas fa-info-circle card-movie-button"></i>
+                    <%end%>
                   </div>
                 </div>
               </div>
@@ -93,7 +102,7 @@
         <div class="swiper-wrapper">
           <% @movies_top_rated.each do |movie| %>
             <div class="swiper-slide">
-              <div class="movies-show-card" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
+              <div class="movies-show-card" data-action="mouseenter->movies-swiper#zoomCard mouseleave->movies-swiper#dezoomCard"
                                                 data-movies-swiper-target="movie"
                                                 data-movie-id= "<%= movie.id %>" >
                 <%= image_tag movie.poster_url, alt: "Affiche film"%>
@@ -111,14 +120,14 @@
                     <% (5 - movie.rating.ceil).times do %>
                       <i class="fa-regular fa-star" style="font-size: 12px"></i>
                     <% end %>
-                    <i><%="#{movie.rating * 2} - #{movie.vote_count} reviews"  %></i>
+                    <i><%="#{movie.rating * 2} (#{movie.vote_count} reviews)"  %></i>
                   </div>
                   <p> <%= movie.overview.truncate(110) %></p>
                   <div class="movies-show-card-buttons">
-                    <%= link_to movie_path(movie), remote: true do %>
-                      <i class="fas fa-info-circle card-movie-button"></i>
-                    <% end %>
                     <i class="fa-solid fa-circle-plus card-movie-button"></i>
+                    <%= link_to movie_path(movie) do %>
+                      <i class="fas fa-info-circle card-movie-button"></i>
+                    <%end%>
                   </div>
                 </div>
               </div>
@@ -131,12 +140,12 @@
     </div>
 
     <div class="movies-show-list">
-      <h1>Most popular movies</h1>
+      <h1>Most popular movies </h1>
       <div class="swiper-container-popular swiper-container" data-action="mouseover->movies-swiper#showArrowsPopular mouseout->movies-swiper#hideArrowsPopular">
         <div class="swiper-wrapper">
-          <% @movies_popular.each do |movie| %>
+          <% @movies_upcoming.each do |movie| %>
             <div class="swiper-slide">
-              <div class="movies-show-card" data-action="mouseover->movies-swiper#zoomCard mouseout->movies-swiper#dezoomCard"
+              <div class="movies-show-card" data-action="mouseenter->movies-swiper#zoomCard mouseleave->movies-swiper#dezoomCard"
                                                 data-movies-swiper-target="movie"
                                                 data-movie-id= "<%= movie.id %>" >
                 <%= image_tag movie.poster_url, alt: "Affiche film"%>
@@ -154,14 +163,14 @@
                     <% (5 - movie.rating.ceil).times do %>
                       <i class="fa-regular fa-star" style="font-size: 12px"></i>
                     <% end %>
-                    <i><%="#{movie.rating * 2} - #{movie.vote_count} reviews"  %></i>
+                    <i><%="#{movie.rating * 2} (#{movie.vote_count} reviews)"  %></i>
                   </div>
                   <p> <%= movie.overview.truncate(110) %></p>
                   <div class="movies-show-card-buttons">
-                    <%= link_to movie_path(movie), remote: true do %>
-                      <i class="fas fa-info-circle card-movie-button"></i>
-                    <% end %>
                     <i class="fa-solid fa-circle-plus card-movie-button"></i>
+                    <%= link_to movie_path(movie) do %>
+                      <i class="fas fa-info-circle card-movie-button"></i>
+                    <%end%>
                   </div>
                 </div>
               </div>
