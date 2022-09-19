@@ -59,14 +59,14 @@
     <div>
       <p style='font-size: 16px'> Global revenue : <%= @movie.revenue.to_s.reverse.gsub(/...(?=.)/,'\&,').reverse %> $</p>
     </div>
-    <div class='movie-show-link-container'>
+    <%# <div class='movie-show-link-container'>
       <div class='movie-show-link-btn'>
         <%= link_to 'Check website', '' %>
-      </div>
-      <div class='movie-show-link-btn'>
+      <%# </div> %>
+      <%# <div class='movie-show-link-btn'>
         <%= link_to 'Video trailer', '' %>
-      </div>
-    </div>
+      <%# </div> %>
+    <%# </div> %>
     <p style='font-size: 16px'> <%= @movie.overview %></p>
     <div class='movie-show-casting-container'>
       <div class="movie-show-casting">
